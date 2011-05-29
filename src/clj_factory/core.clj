@@ -37,7 +37,7 @@
 
 (defmacro deffactory
   [type opts & body]
-  `(defmethod ciste.factory/factory ~type
+  `(defmethod clj-factory.core/factory ~type
      [_# & opts#]
      (merge (new ~type)
             (into {}
@@ -51,7 +51,7 @@
 (defmacro defseq
   [type let-form result]
   `(let [type# ~type]
-     (defmethod ciste.factory/fseq type#
+     (defmethod clj-factory.core/fseq type#
        [type#]
        (let [~let-form [(next-counter! type#)]]
          ~result))))
