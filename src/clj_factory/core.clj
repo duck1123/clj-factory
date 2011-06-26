@@ -1,6 +1,6 @@
 (ns clj-factory.core)
 
-(def #^:dynamic *counters* (ref {}))
+(def ^:dynamic *counters* (ref {}))
 
 (defn set-counter!
   [type value]
