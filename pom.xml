@@ -3,9 +3,34 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>clj-factory</groupId>
   <artifactId>clj-factory</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
   <name>clj-factory</name>
+  <packaging>jar</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <url>https://github.com/duck1123/clj-factory</url>
   <description>Library for producing test data from factories</description>
+
+  <developers>
+    <developer>
+      <name>Daniel E. Renfer</name>
+      <email>duck@kronkltd.net</email>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>Eclipse Public License 1.0</name>
+      <url>http://opensource.org/licenses/eclipse-1.0.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:duck1123/clj-factory.git</connection>
+    <developerConnection>scm:git:git@github.com:duck1123/clj-factory.git</developerConnection>
+    <url>git@github.com:duck1123/clj-factory.git</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
