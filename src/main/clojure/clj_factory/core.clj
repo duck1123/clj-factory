@@ -39,14 +39,14 @@
   [type opts & body]
   `(defmethod clj-factory.core/factory ~type
      [_# & opts#]
-     (merge (new ~type)
+     (apply merge #_(new ~type)
             (into {}
                   (map
                    (fn [[k# v#]]
                      [k# (if (ifn? v#)
                            (v#) v#)])
                    ~opts))
-            (first opts#))))
+            opts#)))
 
 (defmacro defseq
   [type let-form result]
