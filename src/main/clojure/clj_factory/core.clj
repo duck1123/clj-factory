@@ -35,18 +35,19 @@
 
 (defmulti factory (fn [type & _] type))
 
+(defn eval-keys
+  [[k v]]
+  [k (if (ifn? v)
+       (v) v)])
+
 (defmacro deffactory
   [type opts & body]
   `(defmethod clj-factory.core/factory ~type
-     [_# & opts#]
-     (apply merge #_(new ~type)
-            (into {}
-                  (map
-                   (fn [[k# v#]]
-                     [k# (if (ifn? v#)
-                           (v#) v#)])
-                   ~opts))
-            opts#)))
+     [type# & args#]
+     (apply merge
+            (if (= (class ~type) Class) (eval (list 'new ~type)))
+            (into {} (map eval-keys ~opts))
+            args#)))
 
 (defmacro defseq
   [type let-form result]
