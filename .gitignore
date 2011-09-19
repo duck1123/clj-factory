@@ -3,3 +3,5 @@
 /classes/
 .lein-deps-sum
 target
+pom.xml
+.lein-failures
