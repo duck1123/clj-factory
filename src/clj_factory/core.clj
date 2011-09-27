@@ -40,9 +40,17 @@
 
 ;; # Multimethods
 
-(defmulti fseq (fn [type & _] type))
+(defn dispatch-fn
+  [type & _] type)
 
-(defmulti factory (fn [type & _] type))
+(defmulti
+  ^{:doc "Returns a new data item for the provided key.
+
+ The defined sequence function is called with the value of the next counter
+ for that key."} fseq dispatch-fn)
+
+(defmulti factory dispatch-fn)
+(defmulti factory-data dispatch-fn)
 
 (defn eval-keys
   [[k v]]
