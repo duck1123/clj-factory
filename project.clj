@@ -3,6 +3,6 @@
   :url "https://github.com/duck1123/clj-factory"
   :repositories {"jiksnu-internal" "http://build.jiksnu.com/repository/internal"
                  "jiksnu-snapshots" "http://build.jiksnu.com/repository/snapshots"}
-  :dependencies [[org.clojure/clojure "1.3.0"]]
-  :dev-dependencies [[net.kronkltd/midje "1.3-alpha2-SNAPSHOT"]]
+  :dependencies [[org.clojure/clojure "1.3.0"]
+                 [midje "1.3-alpha4"]]
   :warn-on-reflection false)
