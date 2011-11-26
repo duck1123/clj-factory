@@ -11,7 +11,7 @@
    (dosync
     (alter
      *counters*
-     (fn [m] (assoc m type value))))
+     (fn [counter] (assoc counter type value))))
    type))
 
 (defn reset-counter!
@@ -30,8 +30,8 @@
   (dosync
    (alter
     *counters*
-    (fn [m]
-      (assoc m type (inc (get m type 0)))))))
+    (fn [counter]
+      (assoc counter type (inc (get counter type 0)))))))
 
 (defn next-counter!
   "Increment and return the next value for the supplied key"
@@ -58,6 +58,7 @@
        (v) v)])
 
 (defmacro deffactory
+  "Defines a new method for factory multimethod"
   [type opts & body]
   `(defmethod clj-factory.core/factory ~type
      [type# & args#]
@@ -67,6 +68,13 @@
             args#)))
 
 (defmacro defseq
+  "Defines a method for fseq multimethod associated with :type dispatch value.
+
+  You can use :let-form and :result to create readable methods, such as:
+
+    (defseq :email [user-id] (str \"user_\" user-id \"@sample.com\"))
+
+  "
   [type let-form result]
   `(let [type# ~type]
      (defmethod clj-factory.core/fseq type#
