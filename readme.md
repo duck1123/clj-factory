@@ -13,14 +13,15 @@ different results.
 
 ### Example
 
-    (defseq :word
-      [n]
-      (str "word" n))
-    
-    (fseq :word) => "word1"
-    (fseq :word) => "word2"
-    (fseq :word) => "word3"
+``` clojure
+(defseq :word
+  [n]
+  (str "word" n))
 
+(fseq :word) => "word1"
+(fseq :word) => "word2"
+(fseq :word) => "word3"
+```
 
 ## Factories
 
@@ -32,40 +33,44 @@ called with no arguments. (unless an override has been provided)
 
 ### Example
 
-    (ns clj-factory.example
-      (:use [clj-factory.core :only [deffactory defseq
-                                     factory fseq]])) 
-    
-    (defseq :username [n] (str "user" n))
-    (defseq :domain [n] (str "sub" n ".example.com"))
-    (defseq :fname [n] "John")
-    (defseq :lname [n] "Smith")
-    (defseq :password [n] (str "hunter" n))
-    
-    (deffactory :user
-      {:username   (fseq :username)
-       :domain     (fseq :domain)
-       :first-name (fseq :fname)
-       :last-name  (fseq :lname)
-       :password   (fseq :password)}))
+``` clojure
+(ns clj-factory.example
+  (:use [clj-factory.core :only [deffactory defseq
+                                 factory fseq]]))
+
+(defseq :username [n] (str "user" n))
+(defseq :domain [n] (str "sub" n ".example.com"))
+(defseq :fname [n] "John")
+(defseq :lname [n] "Smith")
+(defseq :password [n] (str "hunter" n))
+
+(deffactory :user
+  {:username   (fseq :username)
+   :domain     (fseq :domain)
+   :first-name (fseq :fname)
+   :last-name  (fseq :lname)
+   :password   (fseq :password)}))
+```
 
 And used like:
 
-    (factory :user)
-    => {:username "word1",
-        :domain "sub1.example.com",
-        :first-name "John",
-        :last-name "Smith",
-        :password "hunter1"}
-    
-    
-    (factory :user {:name "Tom"})
-    => {:username "word2",
-        :domain "sub2.example.com",
-        :name "John Smith",
-        :first-name "Tom",
-        :last-name "Smith",
-        :password "hunter2"}
+``` clojure
+(factory :user)
+=> {:username "word1",
+    :domain "sub1.example.com",
+    :first-name "John",
+    :last-name "Smith",
+    :password "hunter1"}
+
+
+(factory :user {:name "Tom"})
+=> {:username "word2",
+    :domain "sub2.example.com",
+    :name "John Smith",
+    :first-name "Tom",
+    :last-name "Smith",
+    :password "hunter2"}
+```
 
 ## TODO
 
