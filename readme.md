@@ -1,4 +1,5 @@
 # clj-factory
+[![Continuous Integration status](https://secure.travis-ci.org/duck1123/clj-factory.png)](http://travis-ci.org/duck1123/clj-factory)
 
 Factories allow test data to be easily produced. The goal was to have
 something similar to Factory Girl for Clojure.
