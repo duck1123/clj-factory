@@ -54,19 +54,18 @@
 
 (defn eval-keys
   [[k v]]
-  [k (if (var? v)
+  [k (if (ifn? v)
        (v) v)])
 
 (defmacro deffactory
   "Defines a new method for factory multimethod"
-  [type & body]
+  [type opts & body]
   `(defmethod clj-factory.core/factory ~type
      [type# & args#]
-     (let [opts# (do ~@body)]
-       (apply merge
-              (if (= (class ~type) Class) (eval (list 'new ~type)))
-              (into {} (map eval-keys opts#))
-              args#))))
+     (apply merge
+            (if (= (class ~type) Class) (eval (list 'new ~type)))
+            (into {} (map eval-keys ~opts))
+            args#)))
 
 (defmacro defseq
   "Defines a method for fseq multimethod associated with :type dispatch value.
