@@ -66,5 +66,16 @@
 
   (fact "Generates copmlex entities based on given pattern"
     (deffactory :user { :username (str "u" "s" "e" "r" "n" "a" "m" "e") :email (str "user-" (+ 15 5) "@example.com") } )
-    (is (= { :username (str "username") :email "user-20@example.com" } (factory :user)))))
+    (is (= { :username (str "username") :email "user-20@example.com" } (factory :user))))
 
+  (fact "Generates entities that have nested hashes"
+        (deffactory :user { :friend {:name (str "u" "s" "e" "r" "n" "a" "m" "e")}})
+        (is (= {:friend {:name "username"}}) (factory :user)))
+
+  (fact "Generates entities that have nested vectors"
+        (deffactory :user { :friend [(str "j" "o" "h" "n") (str "j" "o" "e") "marta"]})
+        (is (= {:friends ["john" "joe" "marta"]}) (factory :user)))
+
+  (fact "Generates entities that have nested seqs"
+        (deffactory :user { :friend '((str "j" "o" "h" "n") (str "j" "o" "e") "marta")})
+        (is (= {:friends '("john" "joe" "marta")}) (factory :user))))
