@@ -1,27 +1,62 @@
 # clj-factory
 [![Continuous Integration status](https://secure.travis-ci.org/duck1123/clj-factory.png)](http://travis-ci.org/duck1123/clj-factory)
 
-Factories allow test data to be easily produced. The goal was to have
-something similar to Factory Girl for Clojure.
+clj-factory is a simple library to help you easily create and
+manipulate test data. clj-factory was inspired by the FactoryGirl
+library for Ruby.
+
+## Useage
+
+Add the following to your project.clj file:
+
+```clojure
+[clj-factory "0.2.1-SNAPSHOT"]
+```
 
 ## Sequences
 
-Sequences are a way to quickly produce simple data values. When
-invoked, the sequence function will be called with a different value
-each time. By default, this is an ever-incrementing counter value. By
-incorporating this value in your calculations, you will always get
-different results.
+A sequence is a pattern for creating test values. You define a
+sequence using the `defseq` function and name it with a keyword.
+
+Every time the factory sequence function is invoked (`fseq`), the
+function defined in `defseq` will be called with an integer counter
+value unique to that sequence. That counter can be incorporated into
+the result, used as a seed for some calculation, or ignored
+completely.
 
 ### Example
 
 ``` clojure
-(defseq :word
-  [n]
+
+(defseq :word [n]
   (str "word" n))
 
 (fseq :word) => "word1"
 (fseq :word) => "word2"
 (fseq :word) => "word3"
+
+```
+
+```clojure
+
+(defseq :random-word [_]
+  (rand-nth ["the" "a" "because" "foo"]))
+
+(fseq :random-word) => "a"
+(fseq :random-word) => "the"
+(fseq :random-word) => "foo"
+
+```
+
+```clojure
+
+(defseq :even-number [n]
+  (* n 2))
+  
+(fseq :even-number) => 2
+(fseq :even-number) => 4
+(fseq :even-number) => 6
+
 ```
 
 ## Factories
@@ -35,9 +70,8 @@ called with no arguments. (unless an override has been provided)
 ### Example
 
 ``` clojure
-(ns clj-factory.example
-  (:use [clj-factory.core :only [deffactory defseq
-                                 factory fseq]]))
+
+(:use '[clj-factory.core :only [deffactory defseq factory fseq]])
 
 (defseq :username [n] (str "user" n))
 (defseq :domain [n] (str "sub" n ".example.com"))
