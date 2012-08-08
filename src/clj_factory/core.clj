@@ -62,11 +62,11 @@
   [type & body]
   `(defmethod clj-factory.core/factory ~type
      [type# & args#]
-     (let [opts# (do ~@body)]
-       (apply merge
-              (if (= (class ~type) Class) (eval (list 'new ~type)))
-              (into {} (map eval-keys opts#))
-              args#))))
+     (let [{:as opts#} (do ~@body)]
+       (->> args#
+            (apply merge opts#)
+            (map eval-keys)
+            (into {})))))
 
 (defmacro defseq
   "Defines a method for fseq multimethod associated with :type dispatch value.
