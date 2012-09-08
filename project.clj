@@ -6,5 +6,5 @@
   :plugins [[lein-midje "2.0.0-SNAPSHOT"]]
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :profiles {:dev
-             {:dependencies [[midje "1.4.0"]]}}
-  :warn-on-reflection false)
+             {:dependencies [[codox "0.6.1"]
+                             [midje "1.4.0"]]}})
