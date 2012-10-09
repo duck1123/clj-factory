@@ -1,4 +1,4 @@
-(defproject clj-factory "0.2.1"
+(defproject clj-factory "0.2.2-SNAPSHOT"
   :description "Library for producing test data from factories"
   :url "https://github.com/duck1123/clj-factory"
   :author "Daniel E. Renfer <duck@kronkltd.net>"
