@@ -10,7 +10,7 @@ library for Ruby.
 Add the following to your project.clj file:
 
 ```clojure
-[clj-factory "0.2.1-SNAPSHOT"]
+[clj-factory "0.2.1"]
 ```
 
 ## Sequences
