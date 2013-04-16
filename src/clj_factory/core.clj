@@ -57,16 +57,27 @@
   [k (if (var? v)
        (v) v)])
 
+(defn merge-result [args opts]
+  (->> args
+       (apply merge opts)
+       (map eval-keys)
+       (into {})))
+
 (defmacro deffactory
   "Defines a new method for factory multimethod"
   [type & body]
   `(defmethod clj-factory.core/factory ~type
      [type# & args#]
      (let [{:as opts#} (do ~@body)]
-       (->> args#
-            (apply merge opts#)
-            (map eval-keys)
-            (into {})))))
+       (merge-result args# opts#))))
+
+(defmacro defrecordfactory
+  "Defines a new method for factory multimethod"
+  [type f & body]
+  `(defmethod clj-factory.core/factory ~type
+     [type# & args#]
+     (let [{:as opts#} (do ~@body)]
+       (~f (merge-result args# opts#)))))
 
 (defmacro defseq
   "Defines a method for fseq multimethod associated with :type dispatch value.

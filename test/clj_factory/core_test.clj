@@ -1,5 +1,5 @@
 (ns clj-factory.core-test
-  (:use [clj-factory.core :only [*counters* deffactory defseq factory fseq
+  (:use [clj-factory.core :only [*counters* deffactory defrecordfactory defseq factory fseq
                                  get-counter inc-counter! reset-counter!
                                  set-counter! next-counter!]]
         [midje.sweet :only [contains fact =>]]))
@@ -88,6 +88,16 @@
 
     (factory :user) => {:username "username"
                         :email "user-20@example.com"})
+
+  (fact "Generates entities preserving a record"
+    (defrecord User [username email])
+
+    (defrecordfactory :user map->User
+      {:username (str "username")
+       :email "user-20@example.com"})
+
+    (factory :user) => (map->User {:username "username"
+                                   :email "user-20@example.com"}))
 
   (fact "Generates complex entities based on given pattern"
 
