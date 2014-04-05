@@ -107,6 +107,20 @@ And used like:
     :password "hunter2"}
 ```
 
+And you can use it with record too
+
+```clojure
+
+(defrecord User [username email])
+
+(defrecordfactory :user map->User
+  {:username (str "username")
+   :email "user-20@example.com"})
+
+=> {:username "username",
+    :email "user-20@example.com"}
+```
+
 ## TODO
 
 - Add method to assign a create function that will process the factory
