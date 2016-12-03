@@ -7,4 +7,10 @@
             [lein-midje "3.1.3"]]
   :dependencies [[org.clojure/clojure "1.6.0"]]
   :profiles {:dev
-             {:dependencies [[midje "1.6.3"]]}})
+             {:dependencies [[midje "1.6.3"]]}}
+  :repositories [["snapshots" {:url "http://artifactory.jiksnu.com/artifactory/libs-snapshot-local/"
+                               :username [:gpg :env/artifactory_username]
+                               :password [:gpg :env/artifactory_password]}]
+                 ["releases" {:url "http://artifactory.jiksnu.com/artifactory/libs-releases-local/"
+                              :username [:gpg :env/artifactory_username]
+                              :password [:gpg :env/artifactory_password]}]])
